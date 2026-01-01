@@ -1,0 +1,23 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
+import { Product } from '../../models/product.model';
+
+@Component({
+  selector: 'app-cart',
+  standalone: true,
+  imports: [CommonModule], // ✅ REQUIRED for *ngIf, *ngFor
+  templateUrl: './cart.component.html',
+  styleUrls: ['./cart.component.css']
+})
+export class CartComponent {
+  cartItems: Product[] = [];
+
+  constructor(private cartService: CartService) {
+    this.cartItems = this.cartService.getCartItems();
+  }
+
+  removeItem(index: number) {
+    this.cartService.removeItem(index);
+  }
+}
